@@ -22,3 +22,7 @@ You woke up as ghost in the unknown enviroment. You are going to figure out what
  - "g" - change to body/ghost
  - "e" - use
  - "r" - sleep
+ 
+ # Requiments (tested with)
+ - Newest python
+ - Pygame 2 dev8
