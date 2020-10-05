@@ -13,7 +13,7 @@ You woke up as ghost in the unknown enviroment. You are going to figure out what
 # Mechanics
  - Changing from ghost to body on limited time
  - Day cycle
- - Nps are spawning only if you have enought coins and only in setted time
+ - NPCs are spawning only if you have enought coins and only in setted time
  - Comunication with NPCs
  - Upgrades (with magic table that can be found in some buildings)
  
