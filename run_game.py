@@ -260,7 +260,7 @@ def settloop():
 
 
 pygame.mixer.init()
-menumusic = pygame.mixer.music.load('music.mp3')
+menumusic = pygame.mixer.music.load('music.ogg')
 pygame.mixer.music.play(-1)
 #Setings for pygame
 
