@@ -1,4 +1,5 @@
 import pygame, engine, time, threading, pygame.freetype, os
+
 res = '1200x600'
 pygame.init()
 fullscreen = False
@@ -27,15 +28,18 @@ sound_on = pygame.image.load('sound on.png').convert_alpha()
 sound_off = pygame.image.load('sound off.png').convert_alpha()
 vol = 0.5
 
+
 def credloop():
     win.fill((0, 0, 0))
     cred = True
     while cred:
         time_pygame.tick(30)
 
-        fontmenu100.render_to(win, (int(width // 2 - 190), int(height // 2 - height // 4)), 'Matej Justus', (150, 150, 150))
+        fontmenu100.render_to(win, (int(width // 2 - 190), int(height // 2 - height // 4)), 'Matej Justus',
+                              (150, 150, 150))
         fontmenu100.render_to(win, (int(width // 2 - 190), int(height // 2)), 'Filip Drábik', (150, 150, 150))
-        fontmenu100.render_to(win, (int(width // 2 - 190), int(height // 2 + height // 4)), 'Lukáš Fedor', (150, 150, 150))
+        fontmenu100.render_to(win, (int(width // 2 - 190), int(height // 2 + height // 4)), 'Lukáš Fedor',
+                              (150, 150, 150))
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -55,9 +59,6 @@ def settloop():
         win.fill((0, 0, 0))
         time_pygame.tick(30)
         click = False
-
-        volj = vol * 10
-
         mx, my = pygame.mouse.get_pos()
 
         for event in pygame.event.get():
@@ -74,24 +75,14 @@ def settloop():
         restribut = pygame.Rect(int(width // 17), int(height * 0.1 + 150), 330, 50)
         resstirybut = pygame.Rect(int(width // 17), int(height * 0.1 + 225), 330, 50)
         respatbut = pygame.Rect(int(width // 17), int(height * 0.1 + 300), 330, 50)
-
         ressestbut = pygame.Rect(int(width // 3), int(height * 0.1), 330, 50)
         ressedembut = pygame.Rect(int(width // 3), int(height * 0.1 + 75), 330, 50)
         resosembut = pygame.Rect(int(width // 3), int(height * 0.1 + 150), 330, 50)
         resdevetbut = pygame.Rect(int(width // 3), int(height * 0.1 + 225), 330, 50)
         resdesatbut = pygame.Rect(int(width // 3), int(height * 0.1 + 300), 330, 50)
-
         fsbut = pygame.Rect(int(width * 0.7), int(height * 0.1 + 225), 240, 50)
-
         volm = pygame.Rect(int(width * 0.7 + 40), int(height * 0.1 + 85), 20, 20)
         volp = pygame.Rect(int(width * 0.7 + 105), int(height * 0.1 + 85), 20, 20)
-
-        # pygame.draw.rect(win, (150, 150, 150), fsbut, 2)
-        # pygame.draw.rect(win, (150, 150, 150), vol1, 2)
-
-        # pygame.draw.rect(win, (150, 150, 150), resjedenbut, 4)
-        # pygame.draw.rect(win, (150, 150, 150), resdvabut, 4)
-        # pygame.draw.rect(win, (150, 150, 150), restribut, 4)
 
         fontmenu70.render_to(win, (int(width - 200), int(height - 100)), 'Back', (150, 150, 150))
         fontmenu70.render_to(win, (int(width // 17), int(height * 0.1)), '1000x500', (150, 150, 150))
@@ -99,21 +90,16 @@ def settloop():
         fontmenu70.render_to(win, (int(width // 17), int(height * 0.1 + 150)), '1200x800', (150, 150, 150))
         fontmenu70.render_to(win, (int(width // 17), int(height * 0.1 + 225)), '1280x720', (150, 150, 150))
         fontmenu70.render_to(win, (int(width // 17), int(height * 0.1 + 300)), '1366x768', (150, 150, 150))
-
         fontmenu70.render_to(win, (int(width // 3), int(height * 0.1)), '1440x900', (150, 150, 150))
         fontmenu70.render_to(win, (int(width // 3), int(height * 0.1 + 75)), '1680x1050', (150, 150, 150))
         fontmenu70.render_to(win, (int(width // 3), int(height * 0.1 + 150)), '1920x1080', (150, 150, 150))
         fontmenu70.render_to(win, (int(width // 3), int(height * 0.1 + 225)), '1920x1200', (150, 150, 150))
         fontmenu70.render_to(win, (int(width // 3), int(height * 0.1 + 300)), '2560x1440', (150, 150, 150))
-
         fontmenu70.render_to(win, (int(width * 0.7 + 105), int(height * 0.1 + 85)), '+', (150, 150, 150))
         fontmenu70.render_to(win, (int(width * 0.7 + 40), int(height * 0.1 + 93)), '_', (150, 150, 150))
-
         fontmenu70.render_to(win, (int(width * 0.7), int(height * 0.1)), 'Volume', (150, 150, 150))
-        fontmenu50.render_to(win, (int(width * 0.7 + 70), int(height * 0.1 + 80)), str(round(vol * 10)), (150, 150, 150))
-        # pygame.draw.rect(win, (150,150,150), volp, 2)
-        # pygame.draw.rect(win, (150,150,150), volm, 2)
-
+        fontmenu50.render_to(win, (int(width * 0.7 + 70), int(height * 0.1 + 80)), str(round(vol * 10)),
+                             (150, 150, 150))
         fontmenu70.render_to(win, (int(width * 0.7), int(height * 0.1 + 225)), 'Fullscreen', (150, 150, 150))
 
         if fsbut.collidepoint((mx, my)) and fullscreen == False:
@@ -141,7 +127,6 @@ def settloop():
             height = screen_size.current_h
             fullscreen = False
 
-        # 1
         elif resjedenbut.collidepoint((mx, my)):
             fontmenu70.render_to(win, (int(width // 17), int(height * 0.1)), '1000x500', (50, 50, 50))
             if click:
@@ -150,8 +135,6 @@ def settloop():
                 res = '1000x500'
                 win = pygame.display.set_mode((width, height))
 
-
-        # 2
         elif resdvabut.collidepoint((mx, my)):
             fontmenu70.render_to(win, (int(width // 17), int(height * 0.1 + 75)), '1200x600', (50, 50, 50))
             if click:
@@ -160,7 +143,6 @@ def settloop():
                 res = '1200x600'
                 win = pygame.display.set_mode((width, height))
 
-        # 3
         elif restribut.collidepoint((mx, my)):
             fontmenu70.render_to(win, (int(width // 17), int(height * 0.1 + 150)), '1200x800', (50, 50, 50))
             if click:
@@ -169,7 +151,6 @@ def settloop():
                 res = '1200x800'
                 win = pygame.display.set_mode((width, height))
 
-        # 4
         elif resstirybut.collidepoint((mx, my)):
             fontmenu70.render_to(win, (int(width // 17), int(height * 0.1 + 225)), '1280x720', (50, 50, 50))
             if click:
@@ -178,7 +159,6 @@ def settloop():
                 res = '1280x720'
                 win = pygame.display.set_mode((width, height))
 
-        # 5
         elif respatbut.collidepoint((mx, my)):
             fontmenu70.render_to(win, (int(width // 17), int(height * 0.1 + 300)), '1366x768', (50, 50, 50))
             if click:
@@ -187,7 +167,6 @@ def settloop():
                 res = '1366x768'
                 win = pygame.display.set_mode((width, height))
 
-        # 6
         elif ressestbut.collidepoint((mx, my)):
             fontmenu70.render_to(win, (int(width // 3), int(height * 0.1)), '1440x900', (50, 50, 50))
             if click:
@@ -196,7 +175,6 @@ def settloop():
                 res = '1440x900'
                 win = pygame.display.set_mode((width, height))
 
-        # 7
         elif ressedembut.collidepoint((mx, my)):
             fontmenu70.render_to(win, (int(width // 3), int(height * 0.1 + 75)), '1680x1050', (50, 50, 50))
             if click:
@@ -205,7 +183,6 @@ def settloop():
                 res = '1680x1050'
                 win = pygame.display.set_mode((width, height))
 
-        # 8
         elif resosembut.collidepoint((mx, my)):
             fontmenu70.render_to(win, (int(width // 3), int(height * 0.1 + 150)), '1920x1080', (50, 50, 50))
             if click:
@@ -214,7 +191,6 @@ def settloop():
                 res = '1920x1080'
                 win = pygame.display.set_mode((width, height))
 
-        # 9
         elif resdevetbut.collidepoint((mx, my)):
             fontmenu70.render_to(win, (int(width // 3), int(height * 0.1 + 225)), '1920x1200', (50, 50, 50))
             if click:
@@ -223,7 +199,6 @@ def settloop():
                 res = '1920x1200'
                 win = pygame.display.set_mode((width, height))
 
-        # 10
         elif resdesatbut.collidepoint((mx, my)):
             fontmenu70.render_to(win, (int(width // 3), int(height * 0.1 + 300)), '2560x1440', (50, 50, 50))
             if click:
@@ -242,7 +217,6 @@ def settloop():
             fontmenu70.render_to(win, (int(width // 17), int(height * 0.1 + 225)), '1280x720', (50, 50, 50))
         elif res == '1366x768':
             fontmenu70.render_to(win, (int(width // 17), int(height * 0.1 + 300)), '1366x768', (50, 50, 50))
-
         elif res == '1440x900':
             fontmenu70.render_to(win, (int(width // 3), int(height * 0.1)), '1440x900', (50, 50, 50))
         elif res == '1680x1050':
@@ -260,15 +234,14 @@ def settloop():
 
 
 pygame.mixer.init()
-menumusic = pygame.mixer.music.load('music.ogg')
+pygame.mixer.music.load('music.ogg')
 pygame.mixer.music.play(-1)
-#Setings for pygame
+# Setings for pygame
 
 
-#textures:
+# textures:
 ###########################
 big = 60
-#player
 p_i_1 = pygame.transform.scale(pygame.image.load("./Textures/pl_standing.png").convert_alpha(), (big, big))
 p_i_2 = pygame.transform.scale(pygame.image.load("./Textures/pl_standing_2.png").convert_alpha(), (big, big))
 p_r_1 = pygame.transform.scale(pygame.image.load("./Textures/player_r_1.png").convert_alpha(), (big, big))
@@ -287,7 +260,6 @@ p_r = [p_r_1, p_r_2, p_r_3, p_r_4, p_r_4, p_r_3, p_r_2, p_r_1]
 p_l = [p_l_1, p_l_2, p_l_3, p_l_4, p_l_4, p_l_3, p_l_2, p_l_1]
 p_i = [p_i_1, p_i_2]
 
-
 p_s_1_g = pygame.transform.scale(pygame.image.load("./Textures/player_g.png").convert_alpha(), (big, big))
 p_r_1_g = pygame.transform.scale(pygame.image.load("./Textures/player_g_r_1.png").convert_alpha(), (big, big))
 p_r_2_g = pygame.transform.scale(pygame.image.load("./Textures/player_g_r_2.png").convert_alpha(), (big, big))
@@ -299,13 +271,14 @@ p_l_2_g = pygame.transform.flip(pygame.transform.scale(pygame.image.load("./Text
 p_l_3_g = pygame.transform.flip(pygame.transform.scale(pygame.image.load("./Textures/player_g_r_3.png").convert_alpha()
                                                        , (big, big)), True, False)
 p_d = pygame.transform.scale(pygame.image.load("./Textures/pl_down.png").convert_alpha(), (big, big))
-#houses
+
 wood = pygame.transform.scale(pygame.image.load("./Textures/wood.png").convert_alpha(), (big, big))
 roof = pygame.transform.scale(pygame.image.load("./Textures/roof.png").convert_alpha(), (big, big))
-roof_transparent = pygame.transform.scale(pygame.image.load("./Textures/roof_transparent.png").convert_alpha(), (big, big))
+roof_transparent = pygame.transform.scale(pygame.image.load("./Textures/roof_transparent.png").convert_alpha(),
+                                          (big, big))
 chair = pygame.transform.scale(pygame.image.load("./Textures/chair.png").convert_alpha(), (big, big))
 table = pygame.transform.scale(pygame.image.load("./Textures/table.png").convert_alpha(), (big, big))
-#outside
+
 bush = pygame.transform.scale(pygame.image.load("./Textures/bush.png").convert_alpha(), (big, big))
 rock = pygame.transform.scale(pygame.image.load("./Textures/rock.png").convert_alpha(), (big, big))
 floor = pygame.transform.scale(pygame.image.load("./Textures/floor.png").convert_alpha(), (big, big))
@@ -371,7 +344,6 @@ def optimalisation():
         optimize.optimize(map.map_chair, load_chair, xmap, ymap, height, width, range=300)
         optimize.optimize(map.map_rock, load_rock, xmap, ymap, height, width, range=300)
         optimize.optimize(map.map_bush, load_bush, xmap, ymap, height, width, range=300)
-
         time.sleep(0.5)
 
 
@@ -414,11 +386,10 @@ def save_function():
     map.save_points()
 
 
-#Variables
+# Variables
 ##################################
 
 delay = 12
-
 time_pygame = pygame.time.Clock()
 map = engine.map()
 optimize = engine.optimize()
@@ -429,7 +400,6 @@ try:
     p_x = int(save.readline())
     p_y = int(save.readline())
     mode = int(save.readline())
-    #set_vel = int(save.readline())
     state_n = save.readline().split("#")
     c_x = int(save.readline())
     c_y = int(save.readline())
@@ -448,7 +418,7 @@ except:
     p_y = map.spawn[0][1]
     c_x = 2212
     c_y = 492
-    set_vel = 4
+    set_vel = 3
     mode = 1
     xmap = 0
     ymap = 0
@@ -466,8 +436,7 @@ except:
             xmap += 10
 vel = set_vel
 
-#map
-
+# map
 if enable_optimize:
     load_roof = []
     load_grass = []
@@ -488,7 +457,7 @@ else:
     load_bush = map.map_bush
 load = engine.load()
 ghost_animation = engine.animation_block(100)
-ghost_animation.set_animation([npc_g_1, npc_g_1, npc_g_2 ,npc_g_2])
+ghost_animation.set_animation([npc_g_1, npc_g_1, npc_g_2, npc_g_2])
 ghost_n = engine.Npc(map.map_npc_g, 0, int(state_g[0]), npc_g_1, win)
 emily = engine.Npc(map.map_npc, 1, int(state_n[1]), npc_g_1, win)
 npcs_g = [ghost_n]
@@ -506,9 +475,7 @@ points_g = []
 enchant_rig = []
 timer = 10
 
-#player
-
-
+# player
 animation_player = engine.animation_player(80)
 animation_player.set_animation(left=p_l, right=p_r, idle=p_i)
 animation_ghost = engine.animation_player(80)
@@ -516,7 +483,6 @@ animation_ghost.set_animation(left=g_l, right=g_i, idle=g_i)
 enchant_animation = engine.animation_block(100)
 enchant_animation.set_animation(enchant_animation_l)
 block_move = False
-
 state = "idle"
 wall_size = 100
 collision_thread = threading.Thread(target=collisions, daemon=True)
@@ -576,8 +542,6 @@ while run:
 
     keyboard = pygame.key.get_pressed()
 
-
-
     if keyboard[pygame.K_g] and block_move is False:
         if mode == 1 and player_rig.colliderect(ghost_rig_cache) == 1 and ghost_timer < 0:
             mode = 0
@@ -622,7 +586,6 @@ while run:
         if menu is False:
             menu_timer = 15
     if keyboard[pygame.K_r]:
-        #cache_sleep = int(input("how long do you want to sleep?: "))
         cache_sleep = 10
         cache_dark = 1
         while True:
@@ -638,7 +601,6 @@ while run:
             plusbut = pygame.Rect(width // 2 + 35, height // 2 + 7, 25, 25)
             minusbut = pygame.Rect(width // 2 - 35, height // 2 + 7, 25, 25)
             pygame.draw.rect(win, (0, 0, 0), (width // 2 - 35, height // 2 - 2, 95, 50))
-            #pygame.draw.rect(win, (0, 0, 0))
             pygame.draw.rect(win, (0, 0, 0), plusbut)
             pygame.draw.rect(win, (0, 0, 0), minusbut)
             fontmenu50.render_to(win, (width // 2 - 5, height // 2), str(cache_sleep), (255, 255, 255))
@@ -662,12 +624,11 @@ while run:
     player = animation_player.get_current_animation()
     animation_ghost.update_state(state)
     ghost = animation_ghost.get_current_animation()
-    win.fill((255,255,255))
-
-    player_rig_l = pygame.Rect(int(p_x), int(p_y) + 10, 5, big-20)
-    player_rig_r = pygame.Rect(int(p_x) + big, int(p_y) + 10, 5, big-20)
-    player_rig_u = pygame.Rect(int(p_x)+10, int(p_y), big - 20, 5)
-    player_rig_d = pygame.Rect(int(p_x)+10, int(p_y) + big, big-20, 5)
+    win.fill((255, 255, 255))
+    player_rig_l = pygame.Rect(int(p_x), int(p_y) + 10, 5, big - 20)
+    player_rig_r = pygame.Rect(int(p_x) + big, int(p_y) + 10, 5, big - 20)
+    player_rig_u = pygame.Rect(int(p_x) + 10, int(p_y), big - 20, 5)
+    player_rig_d = pygame.Rect(int(p_x) + 10, int(p_y) + big, big - 20, 5)
     rig_list.clear()
     load.load_list(win, load_wood, wood, mapx=xmap, mapy=ymap, rig_list=rig_list)
     load.load_list(win, load_grass, grass_b, mapx=xmap, mapy=ymap)
@@ -686,14 +647,14 @@ while run:
         for i in npcs:
             if not i.inactive:
                 if int(i.time_date[1]) > date.time_hours > int(i.time_date[0]) and date.days[date.date_day] \
-                        in i.time_date[2]: #and int(i.coins) <= number_of_points:
+                        in i.time_date[2]:
                     i.run(xmap, ymap, player_rig)
                     if i.near:
                         pygame.draw.rect(win, (0, 0, 0), (p_x + 60, p_y - 30, 30, 30), 4)
                         fontmenu34.render_to(win, (int(p_x + 71), int(p_y - 26)), 'E', (250, 250, 250))
                         if keyboard[pygame.K_e]:
                             i.talk(win, width, height)
-                            block_move=False
+                            block_move = False
                             break
         if timer <= 0:
             mode = 1
@@ -702,7 +663,7 @@ while run:
             c_y = p_y + ymap
             c_y_map = ymap
         for i in points:
-            if player_rig.collidepoint(i[0] - xmap + big//2, i[1] + big//2 - ymap):
+            if player_rig.collidepoint(i[0] - xmap + big // 2, i[1] + big // 2 - ymap):
                 points.remove([i[0], i[1]])
                 number_of_points += 1
                 map.map_point.remove([i[0], i[1]])
@@ -727,8 +688,6 @@ while run:
         else:
             roof_rig.clear()
             load.load_list(win, load_roof, roof, mapx=xmap, mapy=ymap, rig_list=roof_rig)
-
-
     else:
         player_rig = win.blit(p_d, (c_x - xmap, c_y - ymap))
         ghost_rig_cache = win.blit(ghost, (p_x, p_y))
@@ -749,7 +708,7 @@ while run:
 
         load.load_list_point(win, points_g, point_g, mapx=xmap, mapy=ymap)
         for i in points_g:
-            if ghost_rig_cache.collidepoint(i[0] - xmap + big//2, i[1] + big//2 - ymap):
+            if ghost_rig_cache.collidepoint(i[0] - xmap + big // 2, i[1] + big // 2 - ymap):
                 points_g.remove([i[0], i[1]])
                 map.map_point_g.remove([i[0], i[1]])
                 number_of_points += 1
@@ -762,8 +721,6 @@ while run:
             roof_rig.clear()
             load.load_list(win, load_roof, roof, mapx=xmap, mapy=ymap, rig_list=roof_rig)
 
-
-
     if night < date.time_hours or date.time_hours < day:
         if dark < dark_set:
             dark += 1
@@ -774,7 +731,8 @@ while run:
     screen_surface.set_alpha(dark)
     screen_surface.fill((0, 0, 0))
     win.blit(screen_surface, (0, 0))
-    fontmenu30.render_to(win, (width - 120, height - 90), str(date.time_hours) + " : " + str(date.time_min), (100, 100, 100))
+    fontmenu30.render_to(win, (width - 120, height - 90), str(date.time_hours) + " : " + str(date.time_min),
+                         (100, 100, 100))
     fontmenu30.render_to(win, (width - 120, height - 60), "Points: " + str(number_of_points), (100, 100, 100))
     fontmenu30.render_to(win, (width - 120, height - 30), "Stamina: " + str(round(timer)), (100, 100, 100))
     fontmenu30.render_to(win, (30, 30), "FPS: " + str(round(time_pygame.get_fps())), (100, 100, 100))
@@ -796,18 +754,13 @@ while run:
         quitbut = pygame.Rect(width // 17, height * 0.85, 100, 50)
         musicbut = pygame.Rect(width - 70, 50, 32, 32)
 
-        # pygame.draw.rect(win, (100, 100, 100), playbut, 2)
-        # pygame.draw.rect(win, (100, 100, 100), settbut, 2)
-        # pygame.draw.rect(win, (100, 100, 100), credbut, 2)
-        # pygame.draw.rect(win, (100, 100, 100), quitbut, 2)
-
         if sound == 0:
             win.blit(sound_off, (width - 70, 50))
 
         if sound == 1:
             win.blit(sound_on, (width - 70, 50))
 
-        fontmenu70.render_to(win, (int(width // 17), int(height* 0.85 - 225)), 'Play', (150, 150, 150))
+        fontmenu70.render_to(win, (int(width // 17), int(height * 0.85 - 225)), 'Play', (150, 150, 150))
 
         fontmenu70.render_to(win, (int(width // 17), int(height * 0.85 - 150)), 'Settings', (150, 150, 150))
 
@@ -862,15 +815,17 @@ while run:
         fontmenu50.render_to(win, (int(width * 0.35), int(height // 2 - 25)), 'Time', (255, 255, 255))
         fontmenu50.render_to(win, (int(width * 0.35), int(height // 2 + 25)), 'Speed', (255, 255, 255))
 
-        fontmenu50.render_to(win, (int(width * 0.6), int(height // 2 - 25)), str(timer_set) + '/' + str(max_timer), (255, 255, 255))
-        fontmenu50.render_to(win, (int(width * 0.6), int(height // 2 + 25)), str(set_vel) + "/" + str(max_vel), (255, 255, 255))
+        fontmenu50.render_to(win, (int(width * 0.6), int(height // 2 - 25)), str(timer_set) + '/' + str(max_timer),
+                             (255, 255, 255))
+        fontmenu50.render_to(win, (int(width * 0.6), int(height // 2 + 25)), str(set_vel) + "/" + str(max_vel),
+                             (255, 255, 255))
 
     if keyboard[pygame.K_1]:
-            if 0 < number_of_points and timer_set < max_timer:
-                number_of_points -= 1
-                timer_set += 1
-                print("porushaged 1")
-                time.sleep(0.2)
+        if 0 < number_of_points and timer_set < max_timer:
+            number_of_points -= 1
+            timer_set += 1
+            print("porushaged 1")
+            time.sleep(0.2)
     if keyboard[pygame.K_2]:
         if 0 < number_of_points and set_vel < max_vel:
             number_of_points -= 1
@@ -882,7 +837,4 @@ while run:
         enchant_true = False
         block_move = False
 
-
-
     pygame.display.update()
-    #print(timer)
