@@ -417,7 +417,8 @@ def save_function():
 #Variables
 ##################################
 
-delay = 15
+delay = 12
+
 time_pygame = pygame.time.Clock()
 map = engine.map()
 optimize = engine.optimize()
@@ -653,7 +654,7 @@ while run:
             keys = pygame.key.get_pressed()
 
             if keys[pygame.K_RETURN]:
-                date.time_hours += cache_sleep
+                date.second(cache_sleep * 60)
                 break
             pygame.display.update()
 

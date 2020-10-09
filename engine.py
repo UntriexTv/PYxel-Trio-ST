@@ -179,9 +179,9 @@ class date():
                 self.time_min -= 60
                 self.time_hours += 1
             self.time_min += timeskip
-            if 24 < self.time_hours:
+            while 24 < self.time_hours:
                 self.date_day += 1
-                self.time_hours = 0
+                self.time_hours -= 24
                 if 6 < self.date_day:
                     self.date_day = 0
         else:
