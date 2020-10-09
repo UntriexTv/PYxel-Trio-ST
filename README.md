@@ -3,7 +3,6 @@ Game that was made for pyweek "castaway" chalenge
 
 # State of devlopment
 Game is now in working state, but has some bugs and issues:
- - Sleep doesn't change day.  (15:00 - sleep 15hours - 30:00)
  - bad map (some walls have texture of grass)
 Code is extreme mess. It has no documentation. Will be fixed in no time.
 
