@@ -4,6 +4,7 @@ Game that was made for pyweek "castaway" chalenge
 # State of devlopment
 Game is now in working state, but has some bugs and issues:
  - bad map (some walls have texture of grass)
+ - working on better story and better lines for character and npc
 Code is extreme mess. It has no documentation. Will be fixed in no time.
 
 # Story:
