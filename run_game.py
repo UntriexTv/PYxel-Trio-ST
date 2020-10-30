@@ -1,20 +1,22 @@
-import pygame, engine, time, threading, pygame.freetype, os
+import engine, time, threading, pygame.freetype, os
+try:
+    import pygame
+except:
+    import pip
+    pip.main(["install", "pygame"])
+    import pygame
 
 res = '1200x600'
-pygame.init()
 fullscreen = False
-if fullscreen:
-    screen_size = pygame.display.Info()
-    win = pygame.display.set_mode((screen_size.current_w, screen_size.current_h), pygame.FULLSCREEN)
-    width = screen_size.current_w
-    height = screen_size.current_h
-else:
-    width = 1200
-    height = 600
-    win = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Castaway")
-menu = True
+width = 1200
+height = 600
+big = 60  # pixel size of block
 
+pygame.init()
+win = pygame.display.set_mode((width, height))
+pygame.display.set_caption("Castaway")
+
+# Fonts settings
 pygame.freetype.init()
 fontmenu30 = pygame.freetype.Font('shpinscher.otf', 30)
 fontmenu34 = pygame.freetype.Font('shpinscher.otf', 34)
@@ -23,10 +25,13 @@ fontmenu60 = pygame.freetype.Font('shpinscher.otf', 60)
 fontmenu50 = pygame.freetype.Font('shpinscher.otf', 50)
 fontmenu100 = pygame.freetype.Font('shpinscher.otf', 100)
 fontmenu150 = pygame.freetype.Font('shpinscher.otf', 150)
+
+# sound settings
 sound = 1
-sound_on = pygame.image.load('sound on.png').convert_alpha()
-sound_off = pygame.image.load('sound off.png').convert_alpha()
 vol = 0.5
+pygame.mixer.init()
+pygame.mixer.music.load('music.ogg')
+pygame.mixer.music.play(-1)
 
 
 def credloop():
@@ -233,21 +238,22 @@ def settloop():
         pygame.display.update()
 
 
-pygame.mixer.init()
-pygame.mixer.music.load('music.ogg')
-pygame.mixer.music.play(-1)
-# Setings for pygame
-
-
-# textures:
+# textures/images:
 ###########################
-big = 60
+# icons
+sound_on = pygame.image.load('sound on.png').convert_alpha()
+sound_off = pygame.image.load('sound off.png').convert_alpha()
+
+# Player
+#   idle
 p_i_1 = pygame.transform.scale(pygame.image.load("./Textures/pl_standing.png").convert_alpha(), (big, big))
 p_i_2 = pygame.transform.scale(pygame.image.load("./Textures/pl_standing_2.png").convert_alpha(), (big, big))
+#   right
 p_r_1 = pygame.transform.scale(pygame.image.load("./Textures/player_r_1.png").convert_alpha(), (big, big))
 p_r_2 = pygame.transform.scale(pygame.image.load("./Textures/player_r_2.png").convert_alpha(), (big, big))
 p_r_3 = pygame.transform.scale(pygame.image.load("./Textures/player_r_3.png").convert_alpha(), (big, big))
 p_r_4 = pygame.transform.scale(pygame.image.load("./Textures/player_r_4.png").convert_alpha(), (big, big))
+#   left
 p_l_1 = pygame.transform.flip(pygame.transform.scale(pygame.image.load("./Textures/player_r_1.png")
                                                      .convert_alpha(), (big, big)), True, False)
 p_l_2 = pygame.transform.flip(pygame.transform.scale(pygame.image.load("./Textures/player_r_2.png")
@@ -256,10 +262,9 @@ p_l_3 = pygame.transform.flip(pygame.transform.scale(pygame.image.load("./Textur
                                                      .convert_alpha(), (big, big)), True, False)
 p_l_4 = pygame.transform.flip(pygame.transform.scale(pygame.image.load("./Textures/player_r_4.png")
                                                      .convert_alpha(), (big, big)), True, False)
-p_r = [p_r_1, p_r_2, p_r_3, p_r_4, p_r_4, p_r_3, p_r_2, p_r_1]
-p_l = [p_l_1, p_l_2, p_l_3, p_l_4, p_l_4, p_l_3, p_l_2, p_l_1]
-p_i = [p_i_1, p_i_2]
-
+#   "dead"
+p_d = pygame.transform.scale(pygame.image.load("./Textures/pl_down.png").convert_alpha(), (big, big))
+# Player Ghost
 p_s_1_g = pygame.transform.scale(pygame.image.load("./Textures/player_g.png").convert_alpha(), (big, big))
 p_r_1_g = pygame.transform.scale(pygame.image.load("./Textures/player_g_r_1.png").convert_alpha(), (big, big))
 p_r_2_g = pygame.transform.scale(pygame.image.load("./Textures/player_g_r_2.png").convert_alpha(), (big, big))
@@ -270,7 +275,6 @@ p_l_2_g = pygame.transform.flip(pygame.transform.scale(pygame.image.load("./Text
                                                        , (big, big)), True, False)
 p_l_3_g = pygame.transform.flip(pygame.transform.scale(pygame.image.load("./Textures/player_g_r_3.png").convert_alpha()
                                                        , (big, big)), True, False)
-p_d = pygame.transform.scale(pygame.image.load("./Textures/pl_down.png").convert_alpha(), (big, big))
 
 wood = pygame.transform.scale(pygame.image.load("./Textures/wood.png").convert_alpha(), (big, big))
 roof = pygame.transform.scale(pygame.image.load("./Textures/roof.png").convert_alpha(), (big, big))
@@ -295,21 +299,136 @@ enchant = pygame.transform.scale(pygame.image.load("./Textures/enchant.png").con
 enchant1 = pygame.transform.scale(pygame.image.load("./Textures/enchant1.png").convert_alpha(), (big, big))
 enchant2 = pygame.transform.scale(pygame.image.load("./Textures/enchant2.png").convert_alpha(), (big, big))
 enchant3 = pygame.transform.scale(pygame.image.load("./Textures/enchant3.png").convert_alpha(), (big, big))
+
+# Animations
+#   player
+#       right
+p_r = [p_r_1, p_r_2, p_r_3, p_r_4, p_r_4, p_r_3, p_r_2, p_r_1]
+#       left
+p_l = [p_l_1, p_l_2, p_l_3, p_l_4, p_l_4, p_l_3, p_l_2, p_l_1]
+#       idle
+p_i = [p_i_1, p_i_2]
+#       Settings
+animation_player = engine.animation_player(80)
+animation_player.set_animation(left=p_l, right=p_r, idle=p_i)
+#   ghost
+#       idle/right
 g_i = [p_s_1_g, p_r_1_g, p_r_2_g, p_r_3_g, p_r_2_g, p_r_1_g]
+#       left
 g_l = [p_l_1_g, p_l_1_g, p_l_2_g, p_l_3_g, p_l_2_g, p_l_1_g]
+#       Settings
+animation_ghost = engine.animation_player(80)
+animation_ghost.set_animation(left=g_l, right=g_i, idle=g_i)
+#   enchant table
 enchant_animation_l = [enchant1, enchant2, enchant3, enchant2]
+#       Settings
+enchant_animation = engine.animation_block(100)
+enchant_animation.set_animation(enchant_animation_l)
+
+# Player variables
 rig_l, rig_r, rig_u, rig_d = 0, 0, 0, 0
 player = p_i_1
 player_g = p_s_1_g
-enable_optimize = True
 npc_thread = False
 npc_talking = 0
+block_move = False
+state = "idle"
+timer = 10
+enchant_true = False
+
+# Game Variables
+##################################
+enable_optimize = True
+delay = 12
+time_pygame = pygame.time.Clock()
+optimize = engine.optimize()
+date = engine.date()
+load = engine.load()
+gui = engine.Gui()
 dark = 0
 dark_set = 128
 night = 19
 day = 6
+run = True
+wall_size = 100
+timer_save = pygame.USEREVENT + 3
+pygame.time.set_timer(timer_save, 5000)
+menu_timer = 10
+ghost_timer = 10
+enchant_timer = 10
+max_timer = 30
+max_vel = 10
+menu = True
+
+#   Rigs
+roof_rig = []
+rig_list = []
+points = []
+points_g = []
+enchant_rig = []
+
+# map
+map = engine.map()
+map.load_files()
+
+# Load save
+try:
+    save = open('save.txt', 'r')
+    p_x = int(save.readline())
+    p_y = int(save.readline())
+    mode = int(save.readline())
+    state_n = save.readline().split("#")
+    c_x = int(save.readline())
+    c_y = int(save.readline())
+    xmap = int(save.readline())
+    ymap = int(save.readline())
+    date.time_hours = int(save.readline())
+    date.time_min = int(save.readline())
+    date.date_day = int(save.readline())
+    set_vel = float(save.readline())
+    timer_set = int(save.readline())
+    number_of_points = int(save.readline())
+    state_g = save.readline().split("#")
+    save.close()
+except:
+    p_x = map.spawn[0][0]
+    p_y = map.spawn[0][1]
+    c_x = 2212
+    c_y = 492
+    set_vel = 3
+    mode = 1
+    xmap = 0
+    ymap = 0
+    state_n = [0, 0, 0]
+    state_g = [0]
+    timer_set = 10
+    number_of_points = 0
+    if p_x < 0:
+        while p_x < 0:
+            p_x += 10
+            xmap -= 10
+    elif 0 < p_x:
+        while 0 < p_x:
+            p_x -= 10
+            xmap += 10
+vel = set_vel
+
+#Npc Ghost settings
+ghost_animation = engine.animation_block(100)
+ghost_animation.set_animation([npc_g_1, npc_g_1, npc_g_2, npc_g_2])
+ghost_n = engine.Npc(map.map_npc_g, 0, int(state_g[0]), npc_g_1, win)
+emily = engine.Npc(map.map_npc, 1, int(state_n[1]), npc_g_1, win)
+npcs_g = [ghost_n]
+# Npc People settings
+bob_animation = engine.animation_block(100)
+bob_animation.set_animation([npc_1_1, npc_1_1, npc_1_2, npc_1_2])
+ema_animation = engine.animation_block(100)
+ema_animation.set_animation([npc_2_1, npc_2_1, npc_2_2, npc_2_2])
+man = engine.Npc(map.map_npc, 0, int(state_n[0]), npc_1_1, win)
+npcs = [man, emily]
 
 
+# definitions for menus
 def collisions():
     global rig_l, rig_r, rig_u, rig_d, rig_list
     while True:
@@ -386,57 +505,7 @@ def save_function():
     map.save_points()
 
 
-# Variables
-##################################
-
-delay = 12
-time_pygame = pygame.time.Clock()
-map = engine.map()
-optimize = engine.optimize()
-map.load_files()
-date = engine.date()
-try:
-    save = open('save.txt', 'r')
-    p_x = int(save.readline())
-    p_y = int(save.readline())
-    mode = int(save.readline())
-    state_n = save.readline().split("#")
-    c_x = int(save.readline())
-    c_y = int(save.readline())
-    xmap = int(save.readline())
-    ymap = int(save.readline())
-    date.time_hours = int(save.readline())
-    date.time_min = int(save.readline())
-    date.date_day = int(save.readline())
-    set_vel = float(save.readline())
-    timer_set = int(save.readline())
-    number_of_points = int(save.readline())
-    state_g = save.readline().split("#")
-    save.close()
-except:
-    p_x = map.spawn[0][0]
-    p_y = map.spawn[0][1]
-    c_x = 2212
-    c_y = 492
-    set_vel = 3
-    mode = 1
-    xmap = 0
-    ymap = 0
-    state_n = [0, 0, 0]
-    state_g = [0]
-    timer_set = 10
-    number_of_points = 0
-    if p_x < 0:
-        while p_x < 0:
-            p_x += 10
-            xmap -= 10
-    elif 0 < p_x:
-        while 0 < p_x:
-            p_x -= 10
-            xmap += 10
-vel = set_vel
-
-# map
+#Preparations to play
 if enable_optimize:
     load_roof = []
     load_grass = []
@@ -455,50 +524,11 @@ else:
     load_chair = map.map_chair
     load_rock = map.map_rock
     load_bush = map.map_bush
-load = engine.load()
-ghost_animation = engine.animation_block(100)
-ghost_animation.set_animation([npc_g_1, npc_g_1, npc_g_2, npc_g_2])
-ghost_n = engine.Npc(map.map_npc_g, 0, int(state_g[0]), npc_g_1, win)
-emily = engine.Npc(map.map_npc, 1, int(state_n[1]), npc_g_1, win)
-npcs_g = [ghost_n]
-bob_animation = engine.animation_block(100)
-bob_animation.set_animation([npc_1_1, npc_1_1, npc_1_2, npc_1_2])
-ema_animation = engine.animation_block(100)
-ema_animation.set_animation([npc_2_1, npc_2_1, npc_2_2, npc_2_2])
-man = engine.Npc(map.map_npc, 0, int(state_n[0]), npc_1_1, win)
-npcs = [man, emily]
-run = True
-roof_rig = []
-rig_list = []
-points = []
-points_g = []
-enchant_rig = []
-timer = 10
-
-# player
-animation_player = engine.animation_player(80)
-animation_player.set_animation(left=p_l, right=p_r, idle=p_i)
-animation_ghost = engine.animation_player(80)
-animation_ghost.set_animation(left=g_l, right=g_i, idle=g_i)
-enchant_animation = engine.animation_block(100)
-enchant_animation.set_animation(enchant_animation_l)
-block_move = False
-state = "idle"
-wall_size = 100
 collision_thread = threading.Thread(target=collisions, daemon=True)
 collision_thread.start()
-menu_timer = 10
-ghost_timer = 10
-enchant_timer = 10
-max_timer = 30
-max_vel = 10
-gui = engine.Gui()
 load.load_list_point(win, map.map_point, point, mapx=xmap, mapy=ymap, rig_list=points)
 load.load_list_point(win, map.map_point_g, point_g, mapx=xmap, mapy=ymap, rig_list=points_g)
 screen_surface = pygame.Surface((width, height))
-timer_save = pygame.USEREVENT + 3
-pygame.time.set_timer(timer_save, 5000)
-enchant_true = False
 while run:
     ghost_timer -= 10
     state = "idle"
