@@ -530,6 +530,7 @@ load.load_list_point(win, map.map_point, point, mapx=xmap, mapy=ymap, rig_list=p
 load.load_list_point(win, map.map_point_g, point_g, mapx=xmap, mapy=ymap, rig_list=points_g)
 screen_surface = pygame.Surface((width, height))
 while run:
+    click = False
     ghost_timer -= 10
     state = "idle"
     screen_surface = pygame.Surface((width, height))
@@ -563,12 +564,9 @@ while run:
             ghost_n.update(ghost_animation.get_current_animation())
 
         if evt.type == timer_save:
-            print("save")
             save_function()
         if evt.type == pygame.MOUSEBUTTONDOWN:
             click = True
-        else:
-            click = False
 
     keyboard = pygame.key.get_pressed()
 
@@ -854,13 +852,11 @@ while run:
         if 0 < number_of_points and timer_set < max_timer:
             number_of_points -= 1
             timer_set += 1
-            print("porushaged 1")
             time.sleep(0.2)
     if keyboard[pygame.K_2]:
         if 0 < number_of_points and set_vel < max_vel:
             number_of_points -= 1
             set_vel += 0.25
-            print("porushaged 2")
             time.sleep(0.2)
     if keyboard[pygame.K_e] and 10 < enchant_timer:
         enchant_timer = 20
